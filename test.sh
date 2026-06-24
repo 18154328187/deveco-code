@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# Skip native module loading in test environment
+export SKIP_MCP_NATIVE_BRIDGE="true"
+
 # 测试目录路径
 TEST_DIR="./packages/opencode/test"
 

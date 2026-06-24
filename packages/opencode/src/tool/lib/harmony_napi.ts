@@ -22,7 +22,15 @@ import * as Log from "@opencode-ai/core/util/log"
 import { DEVECO_DEFAULTS, getTaskDefaultModelMap } from "@/plugin/deveco-models"
 import { devecoAuth, ACCESS_TOKEN_EXPIRES_MS } from "@/plugin/deveco"
 
+const log = Log.create({ service: "harmony-napi" })
+
 function addon() {
+  // Skip native module loading when running in CI/test environments without native binaries
+  if (process.env.SKIP_MCP_NATIVE_BRIDGE === "true") {
+    log.info("Skipping mcp-bridge native module loading (SKIP_MCP_NATIVE_BRIDGE=true)")
+    return {} as typeof import("@deveco-codegenie/mcp-bridge")
+  }
+  
   const execDir = path.dirname(process.execPath)
   // 1. vendor directory (npm / production mode)
   const vendorMarker = path.join(execDir, "..", "vendor", "mcp-bridge-native", "package.json")
@@ -41,7 +49,6 @@ function addon() {
 }
 
 const bridge = addon()
-const log = Log.create({ service: "harmony-napi" })
 
 let gate: Promise<void> = Promise.resolve()
 let bound = ""
