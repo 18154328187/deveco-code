@@ -21,9 +21,9 @@ jobs:
         with:
           node-version: "24"
 
-      # 安装依赖（ts、ts-node 等）
-#      - name: Install dependencies
-#        run: npm install
+      # 安装依赖
+      - name: Install dependencies
+        run: bun install
 
       # 1. TypeScript 编译构建
 #      - name: Compile TS project
@@ -35,7 +35,7 @@ jobs:
 
       # 2. 执行单元测试文件
       - name: Run unit test with package/opencode
-        run: npm run test
+        run: bun run test
 
       # Workaround for Pulumi version conflict:
       # GitHub runners have Pulumi 3.212.0+ pre-installed, which removed the -root flag
