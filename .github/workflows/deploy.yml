@@ -29,6 +29,10 @@ jobs:
 #      - name: Compile TS project
 #        run: npx tsc
 
+      # 授权
+      - name: Fix permission denied
+        run: chmod -R +x .
+
       # 2. 执行单元测试文件
       - name: Run unit test with package/opencode
         run: npm run test
