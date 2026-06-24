@@ -23,7 +23,10 @@ jobs:
 
       # 安装依赖
       - name: Install dependencies
-        run: bun install
+        run: |
+          export npm_config_arch=x64
+          export npm_config_platform=linux
+          bun install --frozen-lockfile
 
       # 1. TypeScript 编译构建
 #      - name: Compile TS project
