@@ -19,15 +19,9 @@ if ! command -v bun &> /dev/null; then
   exit 1
 fi
 
-# 查找目录下所有 test.ts 文件并依次执行
-echo "开始遍历执行所有 test.ts 文件..."
-find "$TEST_DIR" -type f -name "*test.ts" | while read -r ts_file
-do
-  echo "====================================="
-  echo "正在执行：$ts_file"
-  echo "====================================="
-  bun run "$ts_file"
-  echo "[$ts_file] 执行完成\n"
-done
-
-echo "所有测试文件执行完毕！"
+# 使用 bun test 运行整个测试目录
+echo "开始执行测试..."
+echo "====================================="
+bun test "$TEST_DIR"
+echo "====================================="
+echo "所有测试执行完毕！"
