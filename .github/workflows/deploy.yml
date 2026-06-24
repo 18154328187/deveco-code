@@ -27,6 +27,8 @@ jobs:
           export npm_config_arch=x64
           export npm_config_platform=linux
           bun install --frozen-lockfile
+          # 手动补充linux x64原生模块
+          bun add @deveco-codegenie/mcp-bridge-linux-x64
 
       # 1. TypeScript 编译构建
 #      - name: Compile TS project
