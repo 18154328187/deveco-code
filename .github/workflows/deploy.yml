@@ -21,9 +21,17 @@ jobs:
         with:
           node-version: "24"
 
-      # 安装依赖
+      # 关键环境变量：关闭napi-bridge原生模块加载
       - name: Install dependencies
-        run: bun install
+        env:
+          # 自定义环境变量，业务代码判断此变量则跳过加载mcp-bridge原生包
+          SKIP_MCP_NATIVE_BRIDGE: "true"
+          npm_config_arch: x64
+          npm_config_platform: linux
+        run: |
+          bun install --frozen-lockfile
+          # 清除bun缓存避免残留模块
+          bun pm cache rm
 
       # 1. TypeScript 编译构建
 #      - name: Compile TS project
@@ -35,6 +43,8 @@ jobs:
 
       # 2. 执行单元测试文件
       - name: Run unit test with package/opencode
+        env:
+          SKIP_MCP_NATIVE_BRIDGE: "true"
         run: bun run test
 
       # Workaround for Pulumi version conflict:
