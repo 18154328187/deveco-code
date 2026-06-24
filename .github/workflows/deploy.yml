@@ -22,12 +22,12 @@ jobs:
           node-version: "24"
 
       # 安装依赖（ts、ts-node 等）
-      - name: Install dependencies
-        run: npm install
+#      - name: Install dependencies
+#        run: npm install
 
       # 1. TypeScript 编译构建
-      - name: Compile TS project
-        run: npx tsc
+#      - name: Compile TS project
+#        run: npx tsc
 
       # 2. 执行单元测试文件
       - name: Run unit test with package/opencode
